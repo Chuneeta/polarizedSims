@@ -187,7 +187,7 @@ if '__name__==__main__':
           norm = omega_bw.get(opts.pol)
        else:
           norm = opts.normalization
-       scalar = cos_scalar/opts.bw * norm
+       scalar = cos_scalar/(opts.bw * norm)
        try:        
          Tspec[bl] = Tspec.get(bl,0) + scalar * tdat[bl]*_d.conj() # evaluating the power
          Tspec[wbl] = Tspec.get(wbl,0) + 1 # calculating the weight/timestamps
