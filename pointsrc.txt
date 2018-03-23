@@ -1,0 +1,2 @@
+# ID  RA  DEC  FLUX  SI  RM pfrac
+Src1 51.23 -30.72 1 0 10 0.01         
