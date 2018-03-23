@@ -1,5 +1,5 @@
 """
-A simualtion pipeline to generate polarized power spectra from PAPER visibilities
+Simulation pipeline to generate polarized power spectra from PAPER visibilities
 Author: Ridhima Nunhokee
 """
 
