@@ -93,7 +93,7 @@ def compute_omegaB(beampath,jd,freqs,freq_wgts,nside=None,healpix=None):
        domega = 1.0/A0.shape[-1] # dividing by the number of sources
     Aw = A*freq_wgts
     omegaB = {}
-    omegaB = np.nansum(np.nansum(Aw**2,axis=1),axis=1) 
+    omegaB = np.nansum(np.nansum(Aw**2,axis=1),axis=1) * domega 
     OmegaB['xx'] = omegaB[0] 
     OmegaB['xy'] = omegaB[1]
     OmegaB['yx'] = omegaB[2]
@@ -187,7 +187,7 @@ if '__name__==__main__':
           norm = omega_bw.get(opts.pol)
        else:
           norm = opts.normalization
-       scalar = cos_scalar/(opts.bw * norm)
+       scalar = cos_scalar * (opts.bw*1e-9) / norm
        try:        
          Tspec[bl] = Tspec.get(bl,0) + scalar * tdat[bl]*_d.conj() # evaluating the power
          Tspec[wbl] = Tspec.get(wbl,0) + 1 # calculating the weight/timestamps
