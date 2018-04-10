@@ -93,7 +93,7 @@ def compute_omegaB(beampath,jd,freqs,freq_wgts,nside=None,healpix=None):
        domega = 1.0/A0.shape[-1] # dividing by the number of sources
     Aw = A*freq_wgts
     omegaB = {}
-    omegaB = np.nansum(np.nansum(Aw**2,axis=1),axis=1)
+    omegaB = np.nansum(np.nansum(Aw**2,axis=1),axis=1) 
     OmegaB['xx'] = omegaB[0] 
     OmegaB['xy'] = omegaB[1]
     OmegaB['yx'] = omegaB[2]
@@ -177,7 +177,7 @@ if '__name__==__main__':
 
        if opts.convert:
            # convert to temperature
-           d = jy2mK(fqs) * data[ch1:ch2]
+           d = jy2mK * data[ch1:ch2]
        else:
            d = data[ch1:ch2]
            # delay transform one smaple at a time
@@ -196,6 +196,4 @@ if '__name__==__main__':
 
      Tspec['kpl'] = kpl
      print 'Writing', outfile
-     np.savez(outfile,**Tspec)
-
-         
+     np.savez(outfile,**Tspec)         
