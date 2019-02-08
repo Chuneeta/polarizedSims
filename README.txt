@@ -50,7 +50,7 @@ Dependencies:
        Options
           -pol : Polarization (can be I,Q,U,V or xx,xy,yx,yy) depending on what you have simulated
 
-5) Maps (I,Q,U,V) visibility to (xx,xy,yx,yy). For some reason aipy does not want to work with I,Q,U,V so we change the polarization label if the visibilties to (xx,yy,xy,yx). Note that the visibilities are still intact, that is they are for Stokes (I,Q,U,V).
+5) Maps (I,Q,U,V) visibility to (xx,yy,xy,yx). For some reason aipy does not want to work with I,Q,U,V so we change the polarization label if the visibilties to (xx,yy,xy,yx). Note that the visibilities are still intact, that is they are for Stokes (I,Q,U,V).
      python mapStokes2xy.py <uvfiles> -p <pol>
      
      Arguments:

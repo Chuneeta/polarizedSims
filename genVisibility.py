@@ -41,7 +41,7 @@ if __name__=='__main__':
    o.add_option('--save', dest='save',action='store_true', help='If option set to save, visibilities will be stored in MIRIAD format')
    o.add_option('--stokes', dest='stokes',action='store_true', help='If option set you stokes, stokes visibilities will be stored in MIRIAD file')
    o.add_option('--healpix', dest='healpix',action='store_true', help='Enable healpis normalization')
-   o.add_option('--nside', dest='nside',default=128, help='Nside to be use ifro normalization, should be as healpix map used to generate foregrounds')
+   o.add_option('--nside', dest='nside', default=128, help='Nside to be use ifro normalization, should be as healpix map used to generate foregrounds')
    opts, args = o.parse_args(sys.argv[1:])
 
    freqs = np.linspace(opts.start,opts.stop,opts.chan)
@@ -51,6 +51,7 @@ if __name__=='__main__':
    nchan = len(freqs)
 
    jds = np.load(opts.jd)['jd']
+   jds = jds[40:50]
    times = map(float,jds)
    inttime = (times[1]-times[0])*24*60*60 #integration time in seconds
 
@@ -141,8 +142,8 @@ if __name__=='__main__':
       uv.add_var('dec' ,'d'); uv['dec'] = aa.lat
       uv.add_var('obsdec' ,'d'); uv['obsdec'] = aa.lat
       uv.add_var('longitu' ,'d'); uv['longitu'] = aa.long
-      uv.add_var('antpos' ,'d'); uv['antpos'] = (np.array([ant.pos for ant in aa], dtype = np.double)).transpose().flatten() #transpose is miriad convention
-
+      uv.add_var('antpos' ,'d'); uv['antpos'] = (np.array([ant.pos for ant in aa], dtype = np.double)).transpose().flatten()
+      
       for ii, t in enumerate(times):
          print '%d/%d' % (ii+1, len(times))+' done'
          aa.set_jultime(t)

@@ -72,6 +72,7 @@ if '__name__==__main__':
      phors = np.zeros((len(mags)),)
     
      for ii, mg in enumerate(mags):
+        print ii
         spec = Tspec[mg]/weights[mg] # averaging the power by divided the sum by the number of timestamps
         if conj[ii] ==1:
            spec = spec[::-1]
@@ -86,22 +87,25 @@ if '__name__==__main__':
         phors[ii] = CNST1.horizon_limit(z) * pkpr # calculating the super-horizon limit
         #wfall[ii,0] = spec[0]
         wfall[ii,:] = (spec[0:half] + spec[half:][::-1])/2. # folding over k_parallel
-  
-     kpl.sort()   
+     kpl.sort() 
      if opts.plot:
        print 'Plotting ...'
        fig = pylab.figure()
        axis = fig.add_subplot(111)
-       im=pylab.imshow(np.log10(np.abs(wfall.T)),aspect='auto',interpolation='nearest',extent=(kprs[0],kprs[-1],0,np.abs(kpl[0])))
+       if len(kprs)==1:
+          kpr_min=0; kpr_max=2*kprs
+       else:
+          kpr_min=kprs[0]; kpr_max=kprs[-1]
+       im=pylab.imshow(np.log10(np.abs(wfall.T)),aspect='auto',interpolation='nearest',cmap='jet',extent=(kpr_max,kpr_min,0,np.abs(kpl[0])))
        cb=pylab.colorbar(im)#,ticks=[0,2,4,6,8,10,12,14])
-       pylab.plot(kprs,hors,'.',lw=1,color='white')
-       pylab.plot(kprs,phors,'.',lw=1,color='orange')
-       pylab.title(r'${\rm log}_{10}[P(k)]$',fontsize = 15)
-       pylab.ylabel(r'$k_{\parallel}\ [h{\rm Mpc}^{-1}]$',fontsize = 12, labelpad=5)
-       pylab.xlabel(r'$k_{\perp}\ [h{\rm Mpc}^{-1}]$',fontsize = 12,labelpad=5)
-       pylab.tick_params(labelsize= 12)
-       pylab.xlim(0,0.12)
-       pylab.ylim(0,0.42)
+       #pylab.plot(kprs,hors,'.',lw=1,color='white')
+       #pylab.plot(kprs,phors,'.',lw=1,color='orange')
+       #pylab.title(r'${\rm log}_{10}[P(k)]$',fontsize = 15)
+       #pylab.ylabel(r'$k_{\parallel}\ [h{\rm Mpc}^{-1}]$',fontsize = 12, labelpad=5)
+       #pylab.xlabel(r'$k_{\perp}\ [h{\rm Mpc}^{-1}]$',fontsize = 12,labelpad=5)
+       #pylab.tick_params(labelsize= 12)
+       #pylab.xlim(0,0.12)
+       #pylab.ylim(0,0.42)
        pylab.show()
 
      if opts.save:

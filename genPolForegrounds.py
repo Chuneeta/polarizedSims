@@ -118,7 +118,7 @@ def genHealStokes(data,nu,nu0,RM,pol):
    -nu0     : Reference frequency in Hz; type:float
    -RM      : Rotation Measure; type:float
    -pol     : Enable polarized outputs
-   """
+   """      
    phi = RM *(c/nu)**2 # computing polarization angle
    stokesQ = data * np.cos(2*phi)
    stokesU = data * np.sin(2*phi)
@@ -229,6 +229,7 @@ if __name__ == '__main__':
 
     # array containing julian dates
     jds = np.load(opts.jd)['jd']
+    jds = jds[40:50]
     # range of frequencies
     frequency = np.linspace(opts.start,opts.stop,opts.chan)
     np.savez(open('frequency.npz','wb'),frequency=frequency)
@@ -256,7 +257,6 @@ if __name__ == '__main__':
     else:
        data,ra,dec,alpha,RM,pfrac = loadCat(args[0])
        polmap=None
-       print data,ra,dec,alpha
 
     np.savez(open('RADEC.npz','wb'),ra=ra,dec=dec)
     Parallel(n_jobs=opts.cores)(delayed(call_genForegrounds)(data,fq,opts.ref,ra,dec,opts.xpol,opts.ypol,jd,RM,opts.filename,polmap=polmap,pfrac=pfrac,pol=opts.pol) for jd in jds for fq in frequency)
