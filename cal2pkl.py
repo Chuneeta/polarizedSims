@@ -10,7 +10,6 @@ import pickle
 o = optparse.OptionParser()
 o.set_usage('python cal2npz.py [options] *.cal')
 o.set_description(__doc__)
-o.add_option('--npz', dest='npz', default=None, help='Npz file containing absolute solutions or scalings')
 o.add_option('--smooth', dest='smooth', action='store_true', help='Smoothen the calibration solutions')
 o.add_option('-o', dest='outfile', default='gain_solution', help='Name of output file. Default is gain_solution')
 opts, args = o.parse_args(sys.argv[1:])
@@ -21,10 +20,6 @@ for cal in args:
     gsoln = tb.getcol('CPARAM')
     flag = tb.getcol('FLAG')
     _sh =  gsoln.shape
-
-    #print ('Loading scaling')i
-    #scaling = np.sqrt(np.load(opts.npz))    
-    #scaling = np.sqrt(npz['scaling'])
 
     freqs = np.linspace(100,200,203)
     gain_dict = {}
